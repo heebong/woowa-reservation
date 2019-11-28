@@ -22,8 +22,27 @@ public class Controller {
     }
 
     @PostMapping(value = "/slash")
-    public Challenge slash(@RequestBody TokenDto tokenDto) {
-        return new Challenge(tokenDto.getChallenge());
+    public ResponseEntity slash(@RequestBody TokenDto tokenDto) throws ParseException {
+        String data = "{\n" +
+            "   \"challenge\": \"" + tokenDto.getChallenge() + "\"" +
+            "    \"blocks\": [\n" +
+            "        {\n" +
+            "            \"type\": \"section\",\n" +
+            "            \"text\": {\n" +
+            "                \"type\": \"mrkdwn\",\n" +
+            "                \"text\": \"*It's 80 degrees right now.*\"\n" +
+            "            }\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"type\": \"section\",\n" +
+            "            \"text\": {\n" +
+            "                \"type\": \"mrkdwn\",\n" +
+            "                \"text\": \"Partly cloudy today and tomorrow\"\n" +
+            "            }\n" +
+            "        }\n" +
+            "    ]\n" +
+            "}";
+        return ResponseEntity.ok(generateJsonObject(data));
     }
 
     @PostMapping(value = "/calendar")
@@ -46,10 +65,13 @@ public class Controller {
             "        }\n" +
             "    ]\n" +
             "}";
+        
+        return ResponseEntity.ok(generateJsonObject(data));
+    }
 
+    private JSONObject generateJsonObject(String data) throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(data);
-        JSONObject jsonObj = (JSONObject) obj;
-        return ResponseEntity.ok(jsonObj);
+        return (JSONObject) obj;
     }
 }
