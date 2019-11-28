@@ -60,12 +60,12 @@ public class Controller {
             "            \"type\": \"section\",\n" +
             "            \"text\": {\n" +
             "                \"type\": \"mrkdwn\",\n" +
-            "                \"text\": \"Partly cloudy today and tomorrow\"\n" +
+            "                \"text\": \"hihihi\"\n" +
             "            }\n" +
             "        }\n" +
             "    ]\n" +
             "}";
-        
+
         return ResponseEntity.ok(generateJsonObject(data));
     }
 
